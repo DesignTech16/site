@@ -5,8 +5,8 @@
     Author     : ADILSON
 --%>
 
-<%@page import="Entidade.Controller"%>
-<%@page import="Entidade.Categoria"%>
+<%@page import="model.Controller"%>
+<%@page import="model.Categoria"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">

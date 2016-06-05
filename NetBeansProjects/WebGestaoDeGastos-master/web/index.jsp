@@ -4,8 +4,9 @@
     Author     : ADILSON
 --%>
 
-<%@page import="Entidade.Movimentacao"%>
-<%@page import="Entidade.Controller"%>
+<%@page import="ws.wsCategoria"%>
+<%@page import="model.Movimentacao"%>
+<%@page import="model.Controller"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -15,7 +16,7 @@
         <title>Controle de Gastos</title> 
     </head>
     <body class="container">
-        
+
         <header>
             <nav class="navbar navbar-full navbar-light bg-faded" style="background-color: #e3f2fd;">
                 <a class="navbar-brand" href="index.jsp">Controle de Gastos</a>
@@ -26,37 +27,49 @@
                 </ul>
             </nav>            
         </header>
-        
+
         <div>
             <div class="row">
                 <div role="main" class="col-md-8">
-                    
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>Tipo</th>
                                 <th>Categoria</th>
+                                <th>Descrição</th>
                                 <th>Data</th>
                                 <th>Valor (R$)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(Movimentacao m : Controller.ListarMovimentos()){ %>
+                            <% model.Controller c = new model.Controller();
+                                for (model.Movimentacao m : c.ListarMovimentos() ) { %>
                             <tr>
                                 <td><% out.print(m.getTipo()); %></td>
-                                <td><% out.print(m.categoria.getNome()); %></td>
-                                <td><% out.print(m.getData()); %></td>
+                                <td><% out.print(m.getNomeCategoria()); %></td>
+                                <td><% out.print(m.getDescricao()); %></td>
+                                <td><% out.print(m.getDataFormat()); %></td>
                                 <td>R$ <% out.print(m.getValor()); %></td>
                             </tr>
                             <% } %>
-                        </tbody>
-                    </table>
-                        
-                </div>
-                <aside role="complementary" class="col-md-4">
+                            <% wsCategoria ws = new wsCategoria();%>
+                            <tr>
+                                <td><b>Saldo</b></td>
+                                <td><b>R$ <%=ws.obterSaldo()%><b> </td>
+                                            <td></td>
+                                            <td></td>
+                                            </tr>    
 
-                </aside>
-            </div>
-        </div>
-    </body>
-</html>
+
+                                            </tbody>
+                                            </table>
+
+                                            </div>
+                                            <aside role="complementary" class="col-md-4">
+
+                                            </aside>
+                                            </div>
+                                            </div>
+                                            </body>
+                                            </html>

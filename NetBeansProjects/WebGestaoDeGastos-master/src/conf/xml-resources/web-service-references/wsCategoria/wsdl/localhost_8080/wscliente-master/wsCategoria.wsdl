@@ -4,6 +4,12 @@
 <xsd:import namespace="http://ws/" schemaLocation="http://localhost:8080/wscliente-master/wsCategoria?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="hello">
+<part name="parameters" element="tns:hello"/>
+</message>
+<message name="helloResponse">
+<part name="parameters" element="tns:helloResponse"/>
+</message>
 <message name="listacategoria">
 <part name="parameters" element="tns:listacategoria"/>
 </message>
@@ -16,19 +22,35 @@
 <message name="salvacategoriaResponse">
 <part name="parameters" element="tns:salvacategoriaResponse"/>
 </message>
-<message name="hello">
-<part name="parameters" element="tns:hello"/>
-</message>
-<message name="helloResponse">
-<part name="parameters" element="tns:helloResponse"/>
-</message>
 <message name="excluicategoria">
 <part name="parameters" element="tns:excluicategoria"/>
 </message>
 <message name="excluicategoriaResponse">
 <part name="parameters" element="tns:excluicategoriaResponse"/>
 </message>
+<message name="getSaldo">
+<part name="parameters" element="tns:getSaldo"/>
+</message>
+<message name="getSaldoResponse">
+<part name="parameters" element="tns:getSaldoResponse"/>
+</message>
+<message name="listaMovimentacao">
+<part name="parameters" element="tns:listaMovimentacao"/>
+</message>
+<message name="listaMovimentacaoResponse">
+<part name="parameters" element="tns:listaMovimentacaoResponse"/>
+</message>
+<message name="salvaMovimentacao">
+<part name="parameters" element="tns:salvaMovimentacao"/>
+</message>
+<message name="salvaMovimentacaoResponse">
+<part name="parameters" element="tns:salvaMovimentacaoResponse"/>
+</message>
 <portType name="wsCategoria">
+<operation name="hello">
+<input wsam:Action="http://ws/wsCategoria/helloRequest" message="tns:hello"/>
+<output wsam:Action="http://ws/wsCategoria/helloResponse" message="tns:helloResponse"/>
+</operation>
 <operation name="listacategoria">
 <input wsam:Action="http://ws/wsCategoria/listacategoriaRequest" message="tns:listacategoria"/>
 <output wsam:Action="http://ws/wsCategoria/listacategoriaResponse" message="tns:listacategoriaResponse"/>
@@ -37,17 +59,34 @@
 <input wsam:Action="http://ws/wsCategoria/salvacategoriaRequest" message="tns:salvacategoria"/>
 <output wsam:Action="http://ws/wsCategoria/salvacategoriaResponse" message="tns:salvacategoriaResponse"/>
 </operation>
-<operation name="hello">
-<input wsam:Action="http://ws/wsCategoria/helloRequest" message="tns:hello"/>
-<output wsam:Action="http://ws/wsCategoria/helloResponse" message="tns:helloResponse"/>
-</operation>
 <operation name="excluicategoria">
 <input wsam:Action="http://ws/wsCategoria/excluicategoriaRequest" message="tns:excluicategoria"/>
 <output wsam:Action="http://ws/wsCategoria/excluicategoriaResponse" message="tns:excluicategoriaResponse"/>
 </operation>
+<operation name="getSaldo">
+<input wsam:Action="http://ws/wsCategoria/getSaldoRequest" message="tns:getSaldo"/>
+<output wsam:Action="http://ws/wsCategoria/getSaldoResponse" message="tns:getSaldoResponse"/>
+</operation>
+<operation name="listaMovimentacao">
+<input wsam:Action="http://ws/wsCategoria/listaMovimentacaoRequest" message="tns:listaMovimentacao"/>
+<output wsam:Action="http://ws/wsCategoria/listaMovimentacaoResponse" message="tns:listaMovimentacaoResponse"/>
+</operation>
+<operation name="salvaMovimentacao">
+<input wsam:Action="http://ws/wsCategoria/salvaMovimentacaoRequest" message="tns:salvaMovimentacao"/>
+<output wsam:Action="http://ws/wsCategoria/salvaMovimentacaoResponse" message="tns:salvaMovimentacaoResponse"/>
+</operation>
 </portType>
 <binding name="wsCategoriaPortBinding" type="tns:wsCategoria">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="hello">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="listacategoria">
 <soap:operation soapAction=""/>
 <input>
@@ -66,7 +105,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="hello">
+<operation name="excluicategoria">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -75,7 +114,25 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="excluicategoria">
+<operation name="getSaldo">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="listaMovimentacao">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="salvaMovimentacao">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
