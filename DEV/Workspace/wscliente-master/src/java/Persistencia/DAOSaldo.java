@@ -1,10 +1,10 @@
 package Persistencia;
 
-import model.ModelSaldo;
+import model.Saldo;
 import Persistencia.ConexaoMySql;
 import java.util.ArrayList;
 /**
-*
+q*
 * @author Danilo
 */
 public class DAOSaldo extends ConexaoMySql {
@@ -14,12 +14,12 @@ public class DAOSaldo extends ConexaoMySql {
     * @param pModelSaldo
     * return int
     */
-    public int salvarSaldoDAO(ModelSaldo pModelSaldo){
+    public int salvarSaldoDAO(Saldo pModelSaldo){
         try {
             this.conectar();
             return this.insertSQL(
                 "INSERT INTO Saldo ("
-                    + "pk_id_saldo,"
+                    + "id_saldo,"
                     + "saldo"
                 + ") VALUES ("
                     + "'" + pModelSaldo.getIdSaldo() + "',"
@@ -37,81 +37,50 @@ public class DAOSaldo extends ConexaoMySql {
     /**
     * recupera Saldo
     * @param pIdSaldo
-    * return ModelSaldo
+    * return Saldo
     */
-    public ModelSaldo getSaldoDAO(int pIdSaldo){
-        ModelSaldo modelSaldo = new ModelSaldo();
+    public float getSaldoDAO(){
+        Saldo modelSaldo = new Saldo();
         try {
             this.conectar();
             this.executarSQL(
                 "SELECT "
-                    + "pk_id_saldo,"
+                    
                     + "saldo"
                  + " FROM"
                      + " Saldo"
                  + " WHERE"
-                     + " pk_id_saldo = '" + pIdSaldo + "'"
+                     + " id_saldo = '" + 1 + "'"
                 + ";"
             );
 
             while(this.getResultSet().next()){
-                modelSaldo.setIdSaldo(this.getResultSet().getInt(1));
-                modelSaldo.setSaldo(this.getResultSet().getFloat(2));
+                
+                modelSaldo.setSaldo(this.getResultSet().getFloat("saldo"));
             }
         }catch(Exception e){
             e.printStackTrace();
         }finally{
             this.fecharConexao();
         }
-        return modelSaldo;
+        return modelSaldo.getSaldo();
     }
 
-    /**
-    * recupera uma lista de Saldo
-        * return ArrayList
-    */
-    public ArrayList<ModelSaldo> getListaSaldoDAO(){
-        ArrayList<ModelSaldo> listamodelSaldo = new ArrayList();
-        ModelSaldo modelSaldo = new ModelSaldo();
-        try {
-            this.conectar();
-            this.executarSQL(
-                "SELECT "
-                    + "pk_id_saldo,"
-                    + "saldo"
-                 + " FROM"
-                     + " Saldo"
-                + ";"
-            );
-
-            while(this.getResultSet().next()){
-                modelSaldo = new ModelSaldo();
-                modelSaldo.setIdSaldo(this.getResultSet().getInt(1));
-                modelSaldo.setSaldo(this.getResultSet().getFloat(2));
-                listamodelSaldo.add(modelSaldo);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-            this.fecharConexao();
-        }
-        return listamodelSaldo;
-    }
-
+  
     /**
     * atualiza Saldo
     * @param pModelSaldo
     * return boolean
     */
-    public boolean atualizarSaldoDAO(ModelSaldo pModelSaldo){
+    public boolean atualizarSaldoDAO(){
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
                 "UPDATE Saldo SET "
-                    + "pk_id_saldo = '" + pModelSaldo.getIdSaldo() + "',"
-                    + "saldo = '" + pModelSaldo.getSaldo() + "'"
+                    
+                    + "saldo = (select sum(valor) from Movimentacao)"
                 + " WHERE "
-                    + "pk_id_saldo = '" + pModelSaldo.getIdSaldo() + "'"
+                    + "id_saldo = '" + 1 + "'"
                 + ";"
             );
         }catch(Exception e){
@@ -127,13 +96,13 @@ public class DAOSaldo extends ConexaoMySql {
     * @param pIdSaldo
     * return boolean
     */
-    public boolean excluirSaldoDAO(int pIdSaldo){
+    public boolean excluirSaldoDAO(){
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
                 "DELETE FROM Saldo "
                 + " WHERE "
-                    + "pk_id_saldo = '" + pIdSaldo + "'"
+                    + "id_saldo = '" + 1 + "'"
                 + ";"
             );
         }catch(Exception e){

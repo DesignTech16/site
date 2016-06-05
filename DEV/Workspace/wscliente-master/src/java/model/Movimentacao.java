@@ -2,24 +2,27 @@ package model;
 
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
 *
 * @author Danilo
 */
-public class ModelMovimentacao {
+public class Movimentacao implements Serializable {
 
     private int idMovimentacao;
+    private String tipo;
     private float valor;
     private Date data;
     private String descricao;
-    private int id_categoria;
+    private String nome_categoria;
 
     /**
     * Construtor
     */
-    public ModelMovimentacao(){}
+    public Movimentacao(){
+    }
 
     /**
     * seta o valor de idMovimentacao
@@ -41,6 +44,11 @@ public class ModelMovimentacao {
     */
     public void setValor(float pValor){
         this.valor = pValor;
+        if(valor < 0){
+            setTipo("Despesa");
+        }else{
+            setTipo("Receita");
+        }
     }
     /**
     * return valor
@@ -78,21 +86,29 @@ public class ModelMovimentacao {
     }
 
     /**
-    * seta o valor de id_categoria
+    * seta o valor de nome_categoria
     * @param pId_categoria
     */
-    public void setId_categoria(int pId_categoria){
-        this.id_categoria = pId_categoria;
+    public void setNome_categoria(String pId_categoria){
+        this.nome_categoria = pId_categoria;
     }
     /**
     * return fk_id_categoria
     */
-    public int getId_categoria(){
-        return this.id_categoria;
+    public String getNome_categoria(){
+        return this.nome_categoria;
     }
 
     @Override
     public String toString(){
-        return "ModelMovimentacao {" + "::idMovimentacao = " + this.idMovimentacao + "::valor = " + this.valor + "::data = " + this.data + "::descricao = " + this.descricao + "::id_categoria = " + this.id_categoria +  "}";
+        return "ModelMovimentacao {" + "::idMovimentacao = " + this.idMovimentacao + "::valor = " + this.valor + "::data = " + this.data + "::descricao = " + this.descricao + "::id_categoria = " + this.nome_categoria +  "}";
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

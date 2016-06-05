@@ -5,7 +5,7 @@ package model;
 *
 * @author Danilo
 */
-public class ModelCategoria {
+public class Categoria {
 
     private int idCategoria;
     private String nomeCategoria;
@@ -13,7 +13,7 @@ public class ModelCategoria {
     /**
     * Construtor
     */
-    public ModelCategoria(){}
+    public Categoria(){}
 
     /**
     * seta o valor de idCategoria

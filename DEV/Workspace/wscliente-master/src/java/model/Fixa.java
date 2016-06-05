@@ -8,7 +8,7 @@ import java.util.Date;
 *
 * @author Danilo
 */
-public class ModelFixa {
+public class Fixa {
 
     private int idFixa;
     private boolean status;
@@ -19,7 +19,7 @@ public class ModelFixa {
     /**
     * Construtor
     */
-    public ModelFixa(){}
+    public Fixa(){}
 
     /**
     * seta o valor de idFixa

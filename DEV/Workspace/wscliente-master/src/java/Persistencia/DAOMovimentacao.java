@@ -1,7 +1,11 @@
 package Persistencia;;
 
-import model.ModelMovimentacao;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import model.Movimentacao;
 import java.util.ArrayList;
+import java.util.List;
 /**
 *
 * @author Danilo
@@ -13,22 +17,23 @@ public class DAOMovimentacao extends ConexaoMySql {
     * @param pModelMovimentacao
     * return int
     */
-    public int salvarMovimentacaoDAO(ModelMovimentacao pModelMovimentacao){
+    public int salvarMovimentacaoDAO(Movimentacao pModelMovimentacao){
         try {
             this.conectar();
+       Date d = new Date(pModelMovimentacao.getData().getTime());
             return this.insertSQL(
                 "INSERT INTO Movimentacao ("
-                    + "pk_id_movimentacao,"
+                    + "id_mov,"
                     + "valor,"
                     + "data,"
                     + "descricao,"
-                    + "fk_id_categoria"
+                    + "id_categoria"
                 + ") VALUES ("
                     + "'" + pModelMovimentacao.getIdMovimentacao() + "',"
                     + "'" + pModelMovimentacao.getValor() + "',"
-                    + "'" + pModelMovimentacao.getData() + "',"
+                    + "'" + d + "',"
                     + "'" + pModelMovimentacao.getDescricao() + "',"
-                    + "'" + pModelMovimentacao.getId_categoria() + "'"
+                    + "'" + buscarIdCategoria(pModelMovimentacao.getNome_categoria()) + "'"
                 + ");"
             );
         }catch(Exception e){
@@ -38,73 +43,69 @@ public class DAOMovimentacao extends ConexaoMySql {
             this.fecharConexao();
         }
     }
-
-    /**
-    * recupera Movimentacao
-    * @param pIdMovimentacao
-    * return ModelMovimentacao
-    */
-    public ModelMovimentacao getMovimentacaoDAO(int pIdMovimentacao){
-        ModelMovimentacao modelMovimentacao = new ModelMovimentacao();
+    
+    public int buscarIdCategoria(String nomeCategoria){
+        int id = 0;
         try {
             this.conectar();
             this.executarSQL(
                 "SELECT "
-                    + "pk_id_movimentacao,"
-                    + "valor,"
-                    + "data,"
-                    + "descricao,"
-                    + "fk_id_categoria"
+                    + "id_categoria"
+                
                  + " FROM"
-                     + " Movimentacao"
+                     + " Categoria"
                  + " WHERE"
-                     + " pk_id_movimentacao = '" + pIdMovimentacao + "'"
+                     + " nome_categoria = '" + nomeCategoria + "'"
                 + ";"
             );
 
             while(this.getResultSet().next()){
-                modelMovimentacao.setIdMovimentacao(this.getResultSet().getInt(1));
-                modelMovimentacao.setValor(this.getResultSet().getFloat(2));
-                modelMovimentacao.setData(this.getResultSet().getDate(3));
-                modelMovimentacao.setDescricao(this.getResultSet().getString(4));
-                modelMovimentacao.setId_categoria(this.getResultSet().getInt(5));
+               id = this.getResultSet().getInt("id_categoria");
+                
             }
         }catch(Exception e){
             e.printStackTrace();
-        }finally{
-            this.fecharConexao();
         }
-        return modelMovimentacao;
+        return id;
+        
     }
+
+   
+   
 
     /**
     * recupera uma lista de Movimentacao
         * return ArrayList
     */
-    public ArrayList<ModelMovimentacao> getListaMovimentacaoDAO(){
-        ArrayList<ModelMovimentacao> listamodelMovimentacao = new ArrayList();
-        ModelMovimentacao modelMovimentacao = new ModelMovimentacao();
+    public List<Movimentacao> getListaMovimentacaoDAO(){
+        List<Movimentacao> listamodelMovimentacao = new ArrayList();
+        
         try {
             this.conectar();
-            this.executarSQL(
+            String sql = (
                 "SELECT "
-                    + "pk_id_movimentacao,"
+                    + "id_mov,"
                     + "valor,"
                     + "data,"
                     + "descricao,"
-                    + "fk_id_categoria"
+                    + "id_categoria"
                  + " FROM"
                      + " Movimentacao"
                 + ";"
             );
+            
+            PreparedStatement stmt = getCon().prepareStatement(sql);
+            
+            ResultSet rs = stmt.executeQuery();
 
-            while(this.getResultSet().next()){
-                modelMovimentacao = new ModelMovimentacao();
-                modelMovimentacao.setIdMovimentacao(this.getResultSet().getInt(1));
-                modelMovimentacao.setValor(this.getResultSet().getFloat(2));
-                modelMovimentacao.setData(this.getResultSet().getDate(3));
-                modelMovimentacao.setDescricao(this.getResultSet().getString(4));
-                modelMovimentacao.setId_categoria(this.getResultSet().getInt(5));
+            while(rs.next()){
+                Movimentacao modelMovimentacao = new Movimentacao();
+                modelMovimentacao.setIdMovimentacao(rs.getInt("id_mov"));
+                modelMovimentacao.setValor(rs.getFloat("valor"));
+                modelMovimentacao.setData(rs.getDate("data"));
+                
+                modelMovimentacao.setDescricao(rs.getString("descricao"));
+                modelMovimentacao.setNome_categoria(buscarNomeCategoria(rs.getInt("id_categoria")));
                 listamodelMovimentacao.add(modelMovimentacao);
             }
         }catch(Exception e){
@@ -114,24 +115,49 @@ public class DAOMovimentacao extends ConexaoMySql {
         }
         return listamodelMovimentacao;
     }
+    
+    public String buscarNomeCategoria(int id){
+    String nome = null;
+         try {
+            this.conectar();
+            this.executarSQL(
+                "SELECT "
+                    + "nome_categoria"
+                
+                 + " FROM"
+                     + " Categoria"
+                 + " WHERE"
+                     + " id_categoria = '" + id + "'"
+                + ";"
+            );
+
+            while(this.getResultSet().next()){
+               nome = this.getResultSet().getString(1);
+                
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return nome;
+}
 
     /**
     * atualiza Movimentacao
     * @param pModelMovimentacao
     * return boolean
     */
-    public boolean atualizarMovimentacaoDAO(ModelMovimentacao pModelMovimentacao){
+    public boolean atualizarMovimentacaoDAO(Movimentacao pModelMovimentacao){
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
                 "UPDATE Movimentacao SET "
-                    + "pk_id_movimentacao = '" + pModelMovimentacao.getIdMovimentacao() + "',"
+                    + "id_mov = '" + pModelMovimentacao.getIdMovimentacao() + "',"
                     + "valor = '" + pModelMovimentacao.getValor() + "',"
                     + "data = '" + pModelMovimentacao.getData() + "',"
                     + "descricao = '" + pModelMovimentacao.getDescricao() + "',"
-                    + "fk_id_categoria = '" + pModelMovimentacao.getId_categoria() + "'"
+                    + "id_categoria = '" + pModelMovimentacao.getNome_categoria() + "'"
                 + " WHERE "
-                    + "pk_id_movimentacao = '" + pModelMovimentacao.getIdMovimentacao() + "'"
+                    + "id_mov = '" + pModelMovimentacao.getIdMovimentacao() + "'"
                 + ";"
             );
         }catch(Exception e){
@@ -153,7 +179,7 @@ public class DAOMovimentacao extends ConexaoMySql {
             return this.executarUpdateDeleteSQL(
                 "DELETE FROM Movimentacao "
                 + " WHERE "
-                    + "pk_id_movimentacao = '" + pIdMovimentacao + "'"
+                    + "id_mov = '" + pIdMovimentacao + "'"
                 + ";"
             );
         }catch(Exception e){

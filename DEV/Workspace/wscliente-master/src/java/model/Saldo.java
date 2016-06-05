@@ -5,7 +5,7 @@ package model;
 *
 * @author Danilo
 */
-public class ModelSaldo {
+public class Saldo {
 
     private int idSaldo;
     private float saldo;
@@ -13,7 +13,7 @@ public class ModelSaldo {
     /**
     * Construtor
     */
-    public ModelSaldo(){}
+    public Saldo(){}
 
     /**
     * seta o valor de idSaldo

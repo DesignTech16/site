@@ -1,6 +1,9 @@
 package Persistencia;
 
-import model.ModelCategoria;
+
+
+import Persistencia.*;
+import model.Categoria;
 import java.util.ArrayList;
 /**
 *
@@ -13,7 +16,7 @@ public class DAOCategoria extends ConexaoMySql {
     * @param pModelCategoria
     * return int
     */
-    public int salvarCategoriaDAO(ModelCategoria pModelCategoria){
+    public int salvarCategoriaDAO(Categoria pModelCategoria){
         try {
             this.conectar();
             return this.insertSQL(
@@ -31,6 +34,7 @@ public class DAOCategoria extends ConexaoMySql {
         }finally{
             this.fecharConexao();
         }
+        
     }
 
 
@@ -38,14 +42,13 @@ public class DAOCategoria extends ConexaoMySql {
     * recupera uma lista de Categoria
         * return ArrayList
     */
-    public ArrayList<ModelCategoria> getListaCategoriaDAO(){
-        ArrayList<ModelCategoria> listamodelCategoria = new ArrayList();
-        ModelCategoria modelCategoria = new ModelCategoria();
+    public ArrayList<String> getListaCategoriaDAO(){
+        ArrayList<String> listamodelCategoria = new ArrayList();
         try {
             this.conectar();
             this.executarSQL(
                 "SELECT "
-                    + "id_categoria,"
+                    
                     + "nome_categoria"
                  + " FROM"
                      + " Categoria"
@@ -53,10 +56,8 @@ public class DAOCategoria extends ConexaoMySql {
             );
 
             while(this.getResultSet().next()){
-                modelCategoria = new ModelCategoria();
-                modelCategoria.setIdCategoria(this.getResultSet().getInt(1));
-                modelCategoria.setNomeCategoria(this.getResultSet().getString(2));
-                listamodelCategoria.add(modelCategoria);
+                              
+                listamodelCategoria.add(this.getResultSet().getString(1));
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -71,7 +72,7 @@ public class DAOCategoria extends ConexaoMySql {
     * @param pModelCategoria
     * return boolean
     */
-    public boolean atualizarCategoriaDAO(ModelCategoria pModelCategoria){
+    public boolean atualizarCategoriaDAO(Categoria pModelCategoria){
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
@@ -79,7 +80,7 @@ public class DAOCategoria extends ConexaoMySql {
                     + "id_categoria = '" + pModelCategoria.getIdCategoria() + "',"
                     + "nome_categoria = '" + pModelCategoria.getNomeCategoria() + "'"
                 + " WHERE "
-                    + "id_categoria = '" + pModelCategoria.getIdCategoria() + "'"
+                    + "nome_categoria = '" + pModelCategoria.getNomeCategoria() + "'"
                 + ";"
             );
         }catch(Exception e){
@@ -95,13 +96,13 @@ public class DAOCategoria extends ConexaoMySql {
     * @param pIdCategoria
     * return boolean
     */
-    public boolean excluirCategoriaDAO(int pIdCategoria){
+    public boolean excluirCategoriaDAO(String nomeCategoria){
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
                 "DELETE FROM Categoria "
                 + " WHERE "
-                    + "id_categoria = '" + pIdCategoria + "'"
+                    + "nome_categoria = '" + nomeCategoria + "'"
                 + ";"
             );
         }catch(Exception e){

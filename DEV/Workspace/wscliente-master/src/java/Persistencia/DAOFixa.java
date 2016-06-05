@@ -1,6 +1,6 @@
 package Persistencia;
 
-import model.ModelFixa;
+import model.Fixa;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +14,7 @@ public class DAOFixa extends ConexaoMySql {
      *
      * @param pModelFixa return int
      */
-    public int salvarFixaDAO(ModelFixa pModelFixa) {
+    public int salvarFixaDAO(Fixa pModelFixa) {
         try {
 
             this.conectar();
@@ -48,10 +48,10 @@ public class DAOFixa extends ConexaoMySql {
     /**
      * recupera Fixa
      *
-     * @param pIdFixa return ModelFixa
+     * @param pIdFixa return Fixa
      */
-    public ModelFixa getFixaDAO(int pIdFixa) {
-        ModelFixa modelFixa = new ModelFixa();
+    public Fixa getFixaDAO(int pIdFixa) {
+        Fixa modelFixa = new Fixa();
         try {
             this.conectar();
             this.executarSQL(
@@ -91,9 +91,9 @@ public class DAOFixa extends ConexaoMySql {
     /**
      * recupera uma lista de Fixa return ArrayList
      */
-    public ArrayList<ModelFixa> getListaFixaDAO() {
-        ArrayList<ModelFixa> listamodelFixa = new ArrayList();
-        ModelFixa modelFixa = new ModelFixa();
+    public ArrayList<Fixa> getListaFixaDAO() {
+        ArrayList<Fixa> listamodelFixa = new ArrayList();
+        Fixa modelFixa = new Fixa();
         try {
             this.conectar();
             this.executarSQL(
@@ -109,7 +109,7 @@ public class DAOFixa extends ConexaoMySql {
             );
 
             while (this.getResultSet().next()) {
-                modelFixa = new ModelFixa();
+                modelFixa = new Fixa();
                 modelFixa.setIdFixa(this.getResultSet().getInt(1));
                 modelFixa.setStatus(this.getResultSet().getBoolean(2));
                 modelFixa.setDescricao(this.getResultSet().getString(3));
@@ -130,7 +130,7 @@ public class DAOFixa extends ConexaoMySql {
      *
      * @param pModelFixa return boolean
      */
-    public boolean atualizarFixaDAO(ModelFixa pModelFixa) {
+    public boolean atualizarFixaDAO(Fixa pModelFixa) {
         try {
             this.conectar();
               int i = 0;
