@@ -93,4 +93,6 @@ public class wsCategoria {
         DAOCategoria dc = new DAOCategoria();
         return dc.atualizarCategoriaDAO(categoria, categoriaEditada);
     }
+    
+    
 }

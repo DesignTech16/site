@@ -17,6 +17,16 @@ public class Movimentacao implements Serializable {
     private Date data;
     private String descricao;
     private String nome_categoria;
+    String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
 
     /**
     * Construtor

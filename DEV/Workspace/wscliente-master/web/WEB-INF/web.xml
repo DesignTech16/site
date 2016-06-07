@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>SvScheduler</servlet-name>
+        <servlet-class>Controller.SvScheduler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SvScheduler</servlet-name>
+        <url-pattern>/SvScheduler</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>QuartzInitializer</servlet-name>
+        
+        <servlet-class>
+            org.quartz.ee.servlet.QuartzInitializerServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <listener>
+        <listener-class>Controller.MeuScheduler</listener-class>
+    </listener>
     <session-config>
         <session-timeout>
             30
