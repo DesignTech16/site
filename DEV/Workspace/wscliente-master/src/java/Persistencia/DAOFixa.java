@@ -1,5 +1,6 @@
 package Persistencia;
 
+import java.sql.Date;
 import model.Fixa;
 import java.util.ArrayList;
 
@@ -22,6 +23,8 @@ public class DAOFixa extends ConexaoMySql {
             if (pModelFixa.isStatus()) {
                 i = 1;
             }
+            Date d = new Date(pModelFixa.getDia().getTime());
+            
             return this.insertSQL(
                     "INSERT INTO Fixa ("
                     + "id_fixa,"
@@ -33,8 +36,8 @@ public class DAOFixa extends ConexaoMySql {
                     + "'" + pModelFixa.getIdFixa() + "',"
                     + "'" + i + "',"
                     + "'" + pModelFixa.getDescricao() + "',"
-                    + "'" + pModelFixa.getDia() + "',"
-                    + "'" + pModelFixa.getId_categoria() + "'"
+                    + "'" + d + "',"
+                    + "'" + buscarIdCategoria(pModelFixa.getNome_categoria()) + "'"
                     + ");"
             );
         } catch (Exception e) {
@@ -44,50 +47,33 @@ public class DAOFixa extends ConexaoMySql {
             this.fecharConexao();
         }
     }
-
-    /**
-     * recupera Fixa
-     *
-     * @param pIdFixa return Fixa
-     */
-    public Fixa getFixaDAO(int pIdFixa) {
-        Fixa modelFixa = new Fixa();
+    
+    public int buscarIdCategoria(String nomeCategoria){
+        int id = 0;
         try {
             this.conectar();
             this.executarSQL(
-                    "SELECT "
-                    + "id_fixa,"
-                    + "status,"
-                    + "descricao,"
-                    + "dia,"
+                "SELECT "
                     + "id_categoria"
-                    + " FROM"
-                    + " Fixa"
-                    + " WHERE"
-                    + " id_fixa = '" + pIdFixa + "'"
-                    + ";"
+                
+                 + " FROM"
+                     + " Categoria"
+                 + " WHERE"
+                     + " nome_categoria = '" + nomeCategoria + "'"
+                + ";"
             );
 
-            while (this.getResultSet().next()) {
-                modelFixa.setIdFixa(this.getResultSet().getInt(1));
-                int i = this.getResultSet().getInt(2);
-                if (i == 1) {
-                    modelFixa.setStatus(true);
-                } else {
-                    modelFixa.setStatus(false);
-                }
-                modelFixa.setDescricao(this.getResultSet().getString(3));
-                modelFixa.setDia(this.getResultSet().getDate(4));
-                modelFixa.setId_categoria(this.getResultSet().getInt(5));
+            while(this.getResultSet().next()){
+               id = this.getResultSet().getInt("id_categoria");
+                
             }
-        } catch (Exception e) {
+        }catch(Exception e){
             e.printStackTrace();
-        } finally {
-            this.fecharConexao();
         }
-        return modelFixa;
+        return id;
+        
     }
-
+    
     /**
      * recupera uma lista de Fixa return ArrayList
      */
@@ -114,7 +100,7 @@ public class DAOFixa extends ConexaoMySql {
                 modelFixa.setStatus(this.getResultSet().getBoolean(2));
                 modelFixa.setDescricao(this.getResultSet().getString(3));
                 modelFixa.setDia(this.getResultSet().getDate(4));
-                modelFixa.setId_categoria(this.getResultSet().getInt(5));
+                modelFixa.setNome_categoria(buscarNomeCategoria(this.getResultSet().getInt(5)));
                 listamodelFixa.add(modelFixa);
             }
         } catch (Exception e) {
@@ -124,6 +110,31 @@ public class DAOFixa extends ConexaoMySql {
         }
         return listamodelFixa;
     }
+    
+    public String buscarNomeCategoria(int id){
+    String nome = null;
+         try {
+            this.conectar();
+            this.executarSQL(
+                "SELECT "
+                    + "nome_categoria"
+                
+                 + " FROM"
+                     + " Categoria"
+                 + " WHERE"
+                     + " id_categoria = '" + id + "'"
+                + ";"
+            );
+
+            while(this.getResultSet().next()){
+               nome = this.getResultSet().getString(1);
+                
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return nome;
+}
 
     /**
      * atualiza Fixa
@@ -143,7 +154,7 @@ public class DAOFixa extends ConexaoMySql {
                     + "status = '" + i + "',"
                     + "descricao = '" + pModelFixa.getDescricao() + "',"
                     + "dia = '" + pModelFixa.getDia() + "',"
-                    + "id_categoria = '" + pModelFixa.getId_categoria() + "'"
+                    + "id_categoria = '" + buscarIdCategoria(pModelFixa.getNome_categoria()) + "'"
                     + " WHERE "
                     + "id_fixa = '" + pModelFixa.getIdFixa() + "'"
                     + ";"

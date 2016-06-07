@@ -51,7 +51,7 @@ public class DAOCategoria extends ConexaoMySql {
                     
                     + "nome_categoria"
                  + " FROM"
-                     + " Categoria"
+                     + " Categoria where nome_categoria <> 'null' "
                 + ";"
             );
 
@@ -72,15 +72,15 @@ public class DAOCategoria extends ConexaoMySql {
     * @param pModelCategoria
     * return boolean
     */
-    public boolean atualizarCategoriaDAO(Categoria pModelCategoria){
+    public boolean atualizarCategoriaDAO(String categoria, String categoriaEditada ){
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
                 "UPDATE Categoria SET "
-                    + "id_categoria = '" + pModelCategoria.getIdCategoria() + "',"
-                    + "nome_categoria = '" + pModelCategoria.getNomeCategoria() + "'"
+                   
+                    + "nome_categoria = '" + categoriaEditada + "'"
                 + " WHERE "
-                    + "nome_categoria = '" + pModelCategoria.getNomeCategoria() + "'"
+                    + "nome_categoria = '" + categoria + "'"
                 + ";"
             );
         }catch(Exception e){
@@ -93,8 +93,10 @@ public class DAOCategoria extends ConexaoMySql {
 
     /**
     * exclui Categoria
-    * @param pIdCategoria
+     * @param nomeCategoria
+   
     * return boolean
+     * @return 
     */
     public boolean excluirCategoriaDAO(String nomeCategoria){
         try {
@@ -106,7 +108,6 @@ public class DAOCategoria extends ConexaoMySql {
                 + ";"
             );
         }catch(Exception e){
-            e.printStackTrace();
             return false;
         }finally{
             this.fecharConexao();

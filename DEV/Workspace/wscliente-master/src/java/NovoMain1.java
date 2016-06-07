@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import model.Categoria;
 import model.Movimentacao;
+import ws.wsCategoria;
 
 
 
@@ -50,10 +51,12 @@ public class NovoMain1 {
         for (Movimentacao m1 : dc.getListaMovimentacaoDAO()) {
             System.out.println(m1.getDescricao());}*/
         
-        DAOSaldo ds = new DAOSaldo();
-        ds.atualizarSaldoDAO();
+        //DAOSaldo ds = new DAOSaldo();
+       // ds.atualizarSaldoDAO();
         
-        
+        wsCategoria ws = new wsCategoria();
+        String Transporte = "Teste12";
+        ws.salvaCategoria(Transporte);
         
     }
     

@@ -14,7 +14,7 @@ public class Fixa {
     private boolean status;
     private String descricao;
     private Date Dia;
-    private int id_categoria;
+    private String nome_categoria;
 
     /**
     * Construtor
@@ -77,22 +77,16 @@ public class Fixa {
         return this.Dia;
     }
 
-    /**
-    * seta o valor de id_categoria
-    * @param pId_categoria
-    */
-    public void setId_categoria(int pId_categoria){
-        this.id_categoria = pId_categoria;
-    }
-    /**
-    * return fk_id_categoria
-    */
-    public int getId_categoria(){
-        return this.id_categoria;
-    }
-
     @Override
     public String toString(){
-        return "ModelFixa {" + "::idFixa = " + this.idFixa + "::status = " + this.status + "::descricao = " + this.descricao + "::Dia = " + this.Dia + "::id_categoria = " + this.id_categoria +  "}";
+        return "ModelFixa {" + "::idFixa = " + this.idFixa + "::status = " + this.status + "::descricao = " + this.descricao + "::Dia = " + this.Dia + "::id_categoria = " + this.nome_categoria +  "}";
+    }
+
+    public String getNome_categoria() {
+        return nome_categoria;
+    }
+
+    public void setNome_categoria(String nome_categoria) {
+        this.nome_categoria = nome_categoria;
     }
 }

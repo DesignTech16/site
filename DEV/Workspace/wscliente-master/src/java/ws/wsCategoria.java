@@ -5,7 +5,6 @@
  */
 package ws;
 
-
 import Persistencia.DAOCategoria;
 import Persistencia.DAOMovimentacao;
 import Persistencia.DAOSaldo;
@@ -24,61 +23,74 @@ import model.Movimentacao;
 @WebService(serviceName = "wsCategoria")
 public class wsCategoria {
 
-   /**
+    /**
      * This is a sample web service operation
-     */ 
+     */
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
-    
+
     @WebMethod(operationName = "listacategoria")
-    public ArrayList<String> listaCategoria()
-    {
+    public ArrayList<String> listaCategoria() {
         DAOCategoria dc = new DAOCategoria();
         return dc.getListaCategoriaDAO();
     }
-    
+
     @WebMethod(operationName = "salvacategoria")
-    public boolean salvaCategoria(@WebParam(name = "nomecategoria") String NomeCategoria){
+    public boolean salvaCategoria(@WebParam(name = "nomecategoria") String NomeCategoria) {
         boolean i = false;
-        DAOCategoria dc = new  DAOCategoria();
+        DAOCategoria dc = new DAOCategoria();
         Categoria c = new Categoria();
         c.setNomeCategoria(NomeCategoria);
-       dc.salvarCategoriaDAO(c);
-        
+        dc.salvarCategoriaDAO(c);
+
         return i;
     }
-    
+
     @WebMethod(operationName = "excluicategoria")
-    public boolean excluiCategoria(@WebParam(name = "nomecategoria") String NomeCategoria){
+    public boolean excluiCategoria(@WebParam(name = "nomecategoria") String NomeCategoria) {
         boolean i = false;
-        DAOCategoria dc = new  DAOCategoria();
+        DAOCategoria dc = new DAOCategoria();
         Categoria c = new Categoria();
         c.setNomeCategoria(NomeCategoria);
-        dc.excluirCategoriaDAO(c.getNomeCategoria());
-        
+        if (dc.excluirCategoriaDAO(c.getNomeCategoria()));
+        {
+            i = true;
+            DAOSaldo ds = new DAOSaldo();
+            ds.atualizarSaldoDAO();
+        }
+
         return i;
     }
-    
-    public float getSaldo(){
-        
+
+    public float getSaldo() {
+
         DAOSaldo ds = new DAOSaldo();
-     return ds.getSaldoDAO();   
+        ds.atualizarSaldoDAO();
+        return ds.getSaldoDAO();
     }
-    
-    public List<Movimentacao> listaMovimentacao(){
+
+    public List<Movimentacao> listaMovimentacao() {
         DAOMovimentacao dm = new DAOMovimentacao();
         return dm.getListaMovimentacaoDAO();
-    } 
-    
-    public boolean salvaMovimentacao(Movimentacao m){
-        
+    }
+
+    public boolean salvaMovimentacao(Movimentacao m) {
+
         DAOMovimentacao dm = new DAOMovimentacao();
-        if(dm.salvarMovimentacaoDAO(m)!= 0){
+        if (dm.salvarMovimentacaoDAO(m) != 0) {
+            DAOSaldo ds = new DAOSaldo();
+            ds.atualizarSaldoDAO();
             return true;
-        }else{
+        } else {
             return false;
         }
+
+    }
+
+    public boolean atualizaCategoria(String categoria, String categoriaEditada) {
+        DAOCategoria dc = new DAOCategoria();
+        return dc.atualizarCategoriaDAO(categoria, categoriaEditada);
     }
 }
