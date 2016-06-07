@@ -7,15 +7,21 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
     <servlet>
         <servlet-name>SvMovimentacao</servlet-name>
         <servlet-class>model.SvMovimentacao</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>SvCategoria</servlet-name>
+        <servlet-class>model.SvCategoria</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SvMovimentacao</servlet-name>
         <url-pattern>/SvMovimentacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SvCategoria</servlet-name>
+        <url-pattern>/SvCategoria</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

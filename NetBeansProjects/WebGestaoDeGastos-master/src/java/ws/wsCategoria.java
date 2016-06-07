@@ -5,9 +5,7 @@
  */
 package ws;
 
-import model.Categoria;
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -19,11 +17,20 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * @author danilo
  */
 public class wsCategoria {
+    
+    public boolean excluirCategoria(String nomecategoria){
+        
+        return excluicategoria(nomecategoria);
+    }
 
     public List<String> listarCategoria() throws Exception {
 
         return listacategoria();
 
+    }
+    
+    public boolean salvarCategoria(String nome){
+        return salvacategoria(nome);
     }
 
     public float obterSaldo() {
@@ -34,6 +41,11 @@ public class wsCategoria {
     public List<Movimentacao> listarMovimentacao() {
 
         return listaMovimentacao();
+    }
+    
+    public boolean atualizarCategoria(String categoria, String categoriaEditada){
+        
+        return atualizaCategoria(categoria, categoriaEditada);
     }
 
     public boolean salvarMovimentacao(model.Movimentacao m) throws DatatypeConfigurationException {
@@ -59,11 +71,7 @@ public class wsCategoria {
         return port.listacategoria();
     }
 
-    private static boolean excluicategoria(java.lang.String nomecategoria) {
-        ws.WsCategoria_Service service = new ws.WsCategoria_Service();
-        ws.WsCategoria port = service.getWsCategoriaPort();
-        return port.excluicategoria(nomecategoria);
-    }
+    
 
     private static boolean salvacategoria(java.lang.String nomecategoria) {
         ws.WsCategoria_Service service = new ws.WsCategoria_Service();
@@ -87,6 +95,18 @@ public class wsCategoria {
         ws.WsCategoria_Service service = new ws.WsCategoria_Service();
         ws.WsCategoria port = service.getWsCategoriaPort();
         return port.salvaMovimentacao(arg0);
+    }
+
+    private static boolean excluicategoria(java.lang.String nomecategoria) {
+        ws.WsCategoria_Service service = new ws.WsCategoria_Service();
+        ws.WsCategoria port = service.getWsCategoriaPort();
+        return port.excluicategoria(nomecategoria);
+    }
+
+    private static boolean atualizaCategoria(java.lang.String arg0, java.lang.String arg1) {
+        ws.WsCategoria_Service service = new ws.WsCategoria_Service();
+        ws.WsCategoria port = service.getWsCategoriaPort();
+        return port.atualizaCategoria(arg0, arg1);
     }
 
 }

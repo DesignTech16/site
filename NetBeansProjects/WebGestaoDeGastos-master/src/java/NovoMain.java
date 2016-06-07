@@ -21,15 +21,17 @@ public class NovoMain {
      */
     public static void main(String[] args) throws ParseException {
         // TODO code application logic here
-         wsCategoria ws = new wsCategoria();
-         Controller c = new Controller();
-        for ( Movimentacao m : c.ListarMovimentos()) {
-            
-            
-            System.out.println(m.getDataFormat());
-
-           
+             
+        String nomeCategoria = "Danilo";
+        String novacategoria = "DaniloGoulart"; 
+        
+        wsCategoria ws = new wsCategoria();
+        if(ws.atualizarCategoria(nomeCategoria, novacategoria)){
+            System.out.println("Excluido");
+        }else{
+            System.out.println("Erro");
         }
+    
     }
     
 }

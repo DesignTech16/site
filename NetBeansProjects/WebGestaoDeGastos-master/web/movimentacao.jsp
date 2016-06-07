@@ -43,10 +43,10 @@
                         <div class="col-sm-10">
                             <div class="btn-group btn-group-justified" data-toggle="buttons">
                                 <label class="btn btn-default">
-                                    <input type="radio" value="receita" name="tipo">Receita
+                                    <input type="radio" value="receita" required="required" name="tipo">Receita
                                 </label>
                                 <label class="btn btn-default">
-                                    <input type="radio" value="despesa" name="tipo">Despesa
+                                    <input type="radio" value="despesa" required="required" name="tipo">Despesa
                                 </label>
                                
                             </div>

@@ -4,11 +4,11 @@
 <xsd:import namespace="http://ws/" schemaLocation="http://localhost:8080/wscliente-master/wsCategoria?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="hello">
-<part name="parameters" element="tns:hello"/>
+<message name="atualizaCategoria">
+<part name="parameters" element="tns:atualizaCategoria"/>
 </message>
-<message name="helloResponse">
-<part name="parameters" element="tns:helloResponse"/>
+<message name="atualizaCategoriaResponse">
+<part name="parameters" element="tns:atualizaCategoriaResponse"/>
 </message>
 <message name="listacategoria">
 <part name="parameters" element="tns:listacategoria"/>
@@ -27,6 +27,12 @@
 </message>
 <message name="excluicategoriaResponse">
 <part name="parameters" element="tns:excluicategoriaResponse"/>
+</message>
+<message name="hello">
+<part name="parameters" element="tns:hello"/>
+</message>
+<message name="helloResponse">
+<part name="parameters" element="tns:helloResponse"/>
 </message>
 <message name="getSaldo">
 <part name="parameters" element="tns:getSaldo"/>
@@ -47,9 +53,9 @@
 <part name="parameters" element="tns:salvaMovimentacaoResponse"/>
 </message>
 <portType name="wsCategoria">
-<operation name="hello">
-<input wsam:Action="http://ws/wsCategoria/helloRequest" message="tns:hello"/>
-<output wsam:Action="http://ws/wsCategoria/helloResponse" message="tns:helloResponse"/>
+<operation name="atualizaCategoria">
+<input wsam:Action="http://ws/wsCategoria/atualizaCategoriaRequest" message="tns:atualizaCategoria"/>
+<output wsam:Action="http://ws/wsCategoria/atualizaCategoriaResponse" message="tns:atualizaCategoriaResponse"/>
 </operation>
 <operation name="listacategoria">
 <input wsam:Action="http://ws/wsCategoria/listacategoriaRequest" message="tns:listacategoria"/>
@@ -62,6 +68,10 @@
 <operation name="excluicategoria">
 <input wsam:Action="http://ws/wsCategoria/excluicategoriaRequest" message="tns:excluicategoria"/>
 <output wsam:Action="http://ws/wsCategoria/excluicategoriaResponse" message="tns:excluicategoriaResponse"/>
+</operation>
+<operation name="hello">
+<input wsam:Action="http://ws/wsCategoria/helloRequest" message="tns:hello"/>
+<output wsam:Action="http://ws/wsCategoria/helloResponse" message="tns:helloResponse"/>
 </operation>
 <operation name="getSaldo">
 <input wsam:Action="http://ws/wsCategoria/getSaldoRequest" message="tns:getSaldo"/>
@@ -78,7 +88,7 @@
 </portType>
 <binding name="wsCategoriaPortBinding" type="tns:wsCategoria">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="hello">
+<operation name="atualizaCategoria">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -106,6 +116,15 @@
 </output>
 </operation>
 <operation name="excluicategoria">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="hello">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
