@@ -5,8 +5,9 @@
     Author     : ADILSON
 --%>
 
-<%@page import="model.Controller"%>
-<%@page import="model.Categoria"%>
+
+<%@page import="ws.ModelCategoria"%>
+<%@page import="ws.wsGestaodeGastos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -32,7 +33,7 @@
                 <a class="navbar-brand" href="index.jsp">Controle de Gastos</a>
                 <ul class="nav navbar-nav" style="float:right;">
                     <li><a href="index.jsp">Página Inicial</a></li>
-                    <li><a href="movimentacao.jsp">Nova Movimentação</a></li>
+                    <li><a href="movimentacao.jsp">Nova Receita/Despesa</a></li>
                     <li><a href="categorias.jsp">Minhas Categorias</a></li>
                 </ul>
             </nav>
@@ -41,7 +42,7 @@
         <div class="row">
             <div role="main" class="col-md-8">
 
-                <form action="SvCategoria" method="POST"  class="form-horizontal">
+                <form action="ServletCategoria" method="POST"  class="form-horizontal">
                     <hr>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Nova:</label>
@@ -56,7 +57,7 @@
 
                     </div>
                 </form>
-                <form  action="SvCategoria" method="POST"  class="form-horizontal">
+                <form  action="ServletCategoria" method="POST"  class="form-horizontal">
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
@@ -74,12 +75,12 @@
 
                                 <option value="" disabled selected hidden>Selecione uma opção</option>
 
-                                <%
+                               <%
 
-                                    Controller controllerr = new Controller();
-                                    for (Categoria c : controllerr.ListarCategorias()) {%>
+                                    wsGestaodeGastos ws = new wsGestaodeGastos();
+                                    for (ModelCategoria c : ws.obterCategoria()) {%>
 
-                                <option value="<%=c.getNome()%>"><% out.print(c.getNome());%></option>
+                                <option value="<%=c.getIdCategoria()%>"><% out.print(c.getNomeCategoria()+c.getIdCategoria());%></option>
                                 <% }%>
 
                             </select>
@@ -94,7 +95,7 @@
 
                 </form>
 
-                <form action="SvCategoria" method="POST"  class="form-horizontal">
+                <form action="ServletCategoria" method="POST"  class="form-horizontal">
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>
                         <div class="col-sm-10">
@@ -107,18 +108,17 @@
                         <label class="col-sm-2 control-label">Editar:</label>
                         <div class="col-sm-10">
 
-                            <select id="repeticao" name="editarcategoria" class="form-control" required="required">
+                            <select id="repeticao" name="idcategoria" class="form-control" required="required">
 
                                 <option value="" disabled selected hidden>Selecione uma opção</option>
 
                                 <%
 
-                                    Controller controller = new Controller();
-                                    for (Categoria c : controller.ListarCategorias()) {%>
+                                    wsGestaodeGastos ws1 = new wsGestaodeGastos();
+                                    for (ModelCategoria c : ws1.obterCategoria()) {%>
 
-                                <option  value="<%=c.getNome()%>"><% out.print(c.getNome());%></option>
-                                <%  }%>
-
+                                <option value="<%=c.getIdCategoria()%>"><% out.print(c.getNomeCategoria());%></option>
+                                <% }%>
                             </select>
                         </div>
                     </div>
@@ -140,14 +140,6 @@
 
         <hr>
         
-       <!-- <div class="alert alert-success">
-            <h5>${excluir}</h5>
-        </div>
-        <div class="alert alert-success">
-            <h6>${cadastrar}</h6>
-        </div>
-        <div class="alert alert-success">
-            <h6>${editar}</h6>
-        </div> -->
+       
     </body>
 </html>

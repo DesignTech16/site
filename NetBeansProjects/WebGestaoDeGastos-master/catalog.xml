@@ -4,4 +4,8 @@
     <system systemId="http://localhost:8080/wscliente-master/wsGestaoGastos?xsd=1" uri="src/conf/xml-resources/web-service-references/wsGestaoGastos_1/wsdl/localhost_8080/wscliente-master/wsGestaoGastos.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/wscliente-master/wsCategoria?wsdl" uri="src/conf/xml-resources/web-service-references/wsCategoria/wsdl/localhost_8080/wscliente-master/wsCategoria.wsdl"/>
     <system systemId="http://localhost:8080/wscliente-master/wsCategoria?xsd=1" uri="src/conf/xml-resources/web-service-references/wsCategoria/wsdl/localhost_8080/wscliente-master/wsCategoria.xsd_1.xsd"/>
+    <system systemId="http://192.168.0.100:8080/wscliente-master/wsCategoria?wsdl" uri="src/conf/xml-resources/web-service-references/wsCategoria/wsdl/192.168.0.100_8080/wscliente-master/wsCategoria.wsdl"/>
+    <system systemId="http://192.168.0.100:8080/wscliente-master/wsCategoria?xsd=1" uri="src/conf/xml-resources/web-service-references/wsCategoria/wsdl/192.168.0.100_8080/wscliente-master/wsCategoria.xsd_1.xsd"/>
+    <system systemId="http://192.168.0.100:8080/GestaoGastos/GestaodeGastos?wsdl" uri="src/conf/xml-resources/web-service-references/GestaodeGastos/wsdl/192.168.0.100_8080/GestaoGastos/GestaodeGastos.wsdl"/>
+    <system systemId="http://192.168.0.100:8080/GestaoGastos/GestaodeGastos?xsd=1" uri="src/conf/xml-resources/web-service-references/GestaodeGastos/wsdl/192.168.0.100_8080/GestaoGastos/GestaodeGastos.xsd_1.xsd"/>
 </catalog>

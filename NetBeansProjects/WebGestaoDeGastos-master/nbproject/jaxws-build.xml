@@ -26,21 +26,21 @@
             <isset property="conf.dir"/>
         </condition>
     </target>
-    <target name="wsimport-client-wsCategoria" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/wsCategoria"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/wsCategoria" destdir="${build.generated.dir}/jax-wsCache/wsCategoria" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/wsCategoria/wsdl/localhost_8080/wscliente-master/wsCategoria.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/wscliente-master/wsCategoria?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/wsCategoria/wsdl/localhost_8080/wscliente-master/wsCategoria.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/wsCategoria"/>
+    <target name="wsimport-client-GestaodeGastos" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/GestaodeGastos"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/GestaodeGastos" destdir="${build.generated.dir}/jax-wsCache/GestaodeGastos" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/GestaodeGastos/wsdl/192.168.0.100_8080/GestaoGastos/GestaodeGastos.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.0.100:8080/GestaoGastos/GestaodeGastos?wsdl" xnocompile="true" xendorsed="true" package="ws">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/GestaodeGastos/wsdl/192.168.0.100_8080/GestaoGastos/GestaodeGastos.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/GestaodeGastos"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/wsCategoria">
+            <fileset dir="${build.generated.dir}/jax-wsCache/GestaodeGastos">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
     </target>
-    <target name="wsimport-client-clean-wsCategoria" depends="-init-project">
+    <target name="wsimport-client-clean-GestaodeGastos" depends="-init-project">
         <delete dir="${build.generated.sources.dir}/jax-ws/ws"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/wsCategoria"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/GestaodeGastos"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-wsCategoria"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-GestaodeGastos"/>
 </project>

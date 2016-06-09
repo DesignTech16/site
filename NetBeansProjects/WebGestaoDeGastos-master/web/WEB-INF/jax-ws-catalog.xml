@@ -4,4 +4,8 @@
     <system systemId="http://localhost:8080/wscliente-master/wsGestaoGastos?xsd=1" uri="wsdl/localhost_8080/wscliente-master/wsGestaoGastos.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/wscliente-master/wsCategoria?wsdl" uri="wsdl/localhost_8080/wscliente-master/wsCategoria.wsdl"/>
     <system systemId="http://localhost:8080/wscliente-master/wsCategoria?xsd=1" uri="wsdl/localhost_8080/wscliente-master/wsCategoria.xsd_1.xsd"/>
+    <system systemId="http://192.168.0.100:8080/wscliente-master/wsCategoria?wsdl" uri="wsdl/192.168.0.100_8080/wscliente-master/wsCategoria.wsdl"/>
+    <system systemId="http://192.168.0.100:8080/wscliente-master/wsCategoria?xsd=1" uri="wsdl/192.168.0.100_8080/wscliente-master/wsCategoria.xsd_1.xsd"/>
+    <system systemId="http://192.168.0.100:8080/GestaoGastos/GestaodeGastos?wsdl" uri="wsdl/192.168.0.100_8080/GestaoGastos/GestaodeGastos.wsdl"/>
+    <system systemId="http://192.168.0.100:8080/GestaoGastos/GestaodeGastos?xsd=1" uri="wsdl/192.168.0.100_8080/GestaoGastos/GestaodeGastos.xsd_1.xsd"/>
 </catalog>

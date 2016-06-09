@@ -4,10 +4,10 @@
     Author     : ADILSON
 --%>
 
+<%@page import="ws.ModelCategoria"%>
+<%@page import="ws.wsGestaodeGastos"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="model.Movimentacao"%>
-<%@page import="model.Categoria"%>
-<%@page import="model.Controller"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -18,6 +18,7 @@
         <script type="text/javascript" src="content/js/jquery-1.12.3.min.js"></script>
         <script type="text/javascript" src="content/js/controle.js"></script>
 
+
     </head> 
     <body class="container">
 
@@ -26,7 +27,7 @@
                 <a class="navbar-brand" href="index.jsp">Controle de Gastos</a>
                 <ul class="nav navbar-nav" style="float:right;">
                     <li><a href="index.jsp">Página Inicial</a></li>
-                    <li><a href="movimentacao.jsp">Nova Movimentação</a></li>
+                    <li><a href="movimentacao.jsp">Nova Receita/Despesa</a></li>
                     <li><a href="categorias.jsp">Minhas Categorias</a></li>
                 </ul>
             </nav>            
@@ -48,7 +49,7 @@
                                 <label class="btn btn-default">
                                     <input type="radio" value="despesa" required="required" name="tipo">Despesa
                                 </label>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -58,7 +59,7 @@
                         <label class="col-sm-2 control-label">Descrição:</label>
                         <div class="col-sm-10">
                             <input type="text" name="descricao"class="form-control" />
-                            
+
                         </div>
                     </div>
 
@@ -66,18 +67,18 @@
                         <label class="col-sm-2 control-label">Valor:</label>
                         <div class="col-sm-10">
                             <input type="number"name="valor" class="form-control" />
-                           
 
 
-                            
+
+
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Data:</label>
                         <div class="col-sm-10">
-                            <input type="date" name="data" class="form-control" />
-                            
+                            <input type="date"  id="data" name="data"  class="form-control" />
+
                         </div>
                     </div>
 
@@ -91,12 +92,12 @@
 
                                 <%
 
-                                    Controller controller = new Controller();
-                                    for (Categoria c : controller.ListarCategorias()) {%>
+                                    wsGestaodeGastos ws = new wsGestaodeGastos();
+                                    for (ModelCategoria c : ws.obterCategoria()) {%>
 
-                                <option value="<%=c.getNome()%>"><% out.print(c.getNome());%></option>
+                                <option value="<%=c.getIdCategoria()%>"><% out.print(c.getNomeCategoria());%></option>
                                 <% }%>
-                                
+
                             </select>
                         </div>
                     </div>
@@ -107,7 +108,7 @@
                             <select id="repeticao" name="repeticao" class="form-control" required="required">
                                 <option value="eventual" selected="selected">Movimentação eventual</option>
                                 <option value="fixa">Movimentação fixa</option>
-                                
+
                             </select>
                         </div>
                     </div>

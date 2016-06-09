@@ -3,22 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package Servlets;
 
+import Modelo.ModelCategoria;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ws.wsCategoria;
+import ws.wsGestaodeGastos;
 
 /**
  *
  * @author danilo
  */
-public class SvCategoria extends HttpServlet {
+public class ServletCategoria extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,32 +33,37 @@ public class SvCategoria extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-   
-        String excluirCategoria = request.getParameter("excluircategoria");
-        wsCategoria ws = new wsCategoria();
-        if (ws.excluirCategoria(excluirCategoria)) {
+        wsGestaodeGastos ws = new wsGestaodeGastos();
+        int excluirCategoria = Integer.parseInt(request.getParameter("excluircategoria").replaceAll("/", ""));
+        if (excluirCategoria > 0) {
+
+            ws.deleteCategoria(excluirCategoria);
             request.setAttribute("sucesso", "Operação realizada com sucesso!");
-            request.getRequestDispatcher("/categorias.jsp").forward(request, response);
-            
+            request.getRequestDispatcher("categorias.jsp").forward(request, response);
 
         }
-
-        wsCategoria ws1 = new wsCategoria();
+        wsGestaodeGastos ws1 = new wsGestaodeGastos();
         String novaCategoria = request.getParameter("novacategoria");
-        if (ws1.salvarCategoria(novaCategoria)) {
-            request.setAttribute("sucesso", "Operação realizada com sucesso!");
-            request.getRequestDispatcher("/categorias.jsp").forward(request, response);
-        
+        if ("".equals(novaCategoria)) {
+        } else {
 
-        }
-        wsCategoria ws2 = new wsCategoria();
-        String categoria = request.getParameter("editarcategoria");
-        String categoriaEditada = request.getParameter("categoriaeditada");
-        System.out.println(categoria + categoriaEditada);
-        if (ws2.atualizarCategoria(categoria, categoriaEditada)) {
+            ModelCategoria c = new ModelCategoria();
+            c.setNomeCategoria(novaCategoria);
+            ws1.saveCategoria(c);
             request.setAttribute("sucesso", "Operação realizada com sucesso!");
-            request.getRequestDispatcher("/categorias.jsp").forward(request, response);
-           
+            request.getRequestDispatcher("categorias.jsp").forward(request, response);
+        }
+        wsGestaodeGastos ws2 = new wsGestaodeGastos();
+        int idcategoria = Integer.parseInt(request.getParameter("idcategoria"));
+        String categoriaEditada = request.getParameter("categoriaeditada");
+        if (idcategoria > 0) {
+
+            ModelCategoria c = new ModelCategoria();
+            c.setIdCategoria(idcategoria);
+            c.setNomeCategoria(categoriaEditada);
+            ws2.atualizaCategoria(c);
+            request.setAttribute("sucesso", "Operação realizada com sucesso!");
+            request.getRequestDispatcher("categorias.jsp").forward(request, response);
 
         }
 

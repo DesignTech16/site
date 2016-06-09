@@ -15,6 +15,14 @@
         <servlet-name>SvCategoria</servlet-name>
         <servlet-class>model.SvCategoria</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletMovimentacao</servlet-name>
+        <servlet-class>Servlets.ServletMovimentacao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletCategoria</servlet-name>
+        <servlet-class>Servlets.ServletCategoria</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SvMovimentacao</servlet-name>
         <url-pattern>/SvMovimentacao</url-pattern>
@@ -22,6 +30,14 @@
     <servlet-mapping>
         <servlet-name>SvCategoria</servlet-name>
         <url-pattern>/SvCategoria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletMovimentacao</servlet-name>
+        <url-pattern>/ServletMovimentacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletCategoria</servlet-name>
+        <url-pattern>/ServletCategoria</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
